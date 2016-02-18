@@ -48,7 +48,7 @@ angular.module("mightyDatepicker")
         </button>
       </div>
     """
-    $templateCache.put('mightyDatepicker/pickerTemplate', pickerTemplate);
+    $templateCache.put('mightyDatepicker/pickerTemplate', pickerTemplate)
 
   ]).directive "mightyDatepicker", ["$compile", "$templateCache", ($compile, $templateCache) ->
   options =
@@ -203,7 +203,7 @@ angular.module("mightyDatepicker")
         $scope.options.rangeMode = "to"
 
       _indexMarkers()
-      $templateCache.put('mightyDatepicker/markerTemplate', $scope.options.markerTemplate);
+      $templateCache.put('mightyDatepicker/markerTemplate', $scope.options.markerTemplate)
 
     _prepare = ->
       $scope.months = []
@@ -245,7 +245,7 @@ angular.module("mightyDatepicker")
               # push back the start date if the selected day is before
               if moment(day.date).isBefore($scope.model.start, 'day') ||
                 moment(day.date).isSame($scope.model.start, 'day')
-                $scope.model.start = moment(day.date)
+                  $scope.model.start = moment(day.date)
               else
                 $scope.model.end = moment(day.date)
 

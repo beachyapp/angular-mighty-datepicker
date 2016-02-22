@@ -189,7 +189,16 @@ angular.module("mightyDatepicker")
             if $scope.model.start.isValid()
               start = $scope.model.start
           else
-            $scope.model = moment.range()
+            startOfDay =
+              'hour': 0,
+              'minute': 0,
+              'second': 0
+            endOfDay =
+              'hour': 23,
+              'minute': 59,
+              'second': 59
+            $scope.model = moment.range(
+              moment().set(startOfDay), moment().set(endOfDay))
 
         else
           start = moment($scope.model) if $scope.model

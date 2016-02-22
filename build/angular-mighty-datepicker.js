@@ -173,7 +173,7 @@
             };
           };
           _setup = function() {
-            var attr, dates, start, tempOptions, v, _ref;
+            var attr, dates, endOfDay, start, startOfDay, tempOptions, v, _ref;
             tempOptions = {};
             for (attr in options) {
               v = options[attr];
@@ -206,7 +206,17 @@
                     start = $scope.model.start;
                   }
                 } else {
-                  $scope.model = moment.range();
+                  startOfDay = {
+                    'hour': 0,
+                    'minute': 0,
+                    'second': 0
+                  };
+                  endOfDay = {
+                    'hour': 23,
+                    'minute': 59,
+                    'second': 59
+                  };
+                  $scope.model = moment.range(moment().set(startOfDay), moment().set(endOfDay));
                 }
                 break;
               default:

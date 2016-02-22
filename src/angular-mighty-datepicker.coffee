@@ -233,15 +233,21 @@ angular.module("mightyDatepicker")
           when "range"
             startValid = $scope.model.start.isValid()
             endValid = $scope.model.end.isValid()
+            endOfDay =
+              'hour': 23,
+              'minute': 59,
+              'second': 59
 
-            sameDay = false;
+            sameDay = false
             if (startValid && endValid)
               sameDay = $scope.model.start.isSame($scope.model.end, 'day')
 
             # if the start date and end date are both valid or invalid
             # reset the dates.
             if (startValid && endValid && !sameDay) || (!startValid && !endValid)
-              $scope.model = moment.range(moment(day.date), moment(day.date))
+              endDate = moment(day.date)
+              endDate.set(endOfDay)
+              $scope.model = moment.range(moment(day.date), endDate)
 
             # if the end date is not the same
             # set the end date.
@@ -251,7 +257,9 @@ angular.module("mightyDatepicker")
                 moment(day.date).isSame($scope.model.start, 'day')
                   $scope.model.start = moment(day.date)
               else
-                $scope.model.end = moment(day.date)
+                endDate = moment(day.date)
+                endDate.set(endOfDay)
+                $scope.model.end = endDate
 
           else
             $scope.model = day.date

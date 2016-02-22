@@ -244,7 +244,7 @@
             _prepare();
           };
           $scope.select = function(day) {
-            var endValid, ix, sameDay, startValid;
+            var endDate, endOfDay, endValid, ix, sameDay, startValid;
             if (!day.disabled) {
               switch ($scope.options.mode) {
                 case "multiple":
@@ -258,17 +258,26 @@
                 case "range":
                   startValid = $scope.model.start.isValid();
                   endValid = $scope.model.end.isValid();
+                  endOfDay = {
+                    'hour': 23,
+                    'minute': 59,
+                    'second': 59
+                  };
                   sameDay = false;
                   if (startValid && endValid) {
                     sameDay = $scope.model.start.isSame($scope.model.end, 'day');
                   }
                   if ((startValid && endValid && !sameDay) || (!startValid && !endValid)) {
-                    $scope.model = moment.range(moment(day.date), moment(day.date));
+                    endDate = moment(day.date);
+                    endDate.set(endOfDay);
+                    $scope.model = moment.range(moment(day.date), endDate);
                   } else if (sameDay) {
                     if (moment(day.date).isBefore($scope.model.start, 'day') || moment(day.date).isSame($scope.model.start, 'day')) {
                       $scope.model.start = moment(day.date);
                     } else {
-                      $scope.model.end = moment(day.date);
+                      endDate = moment(day.date);
+                      endDate.set(endOfDay);
+                      $scope.model.end = endDate;
                     }
                   }
                   break;

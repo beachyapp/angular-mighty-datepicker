@@ -57,6 +57,7 @@ angular.module("mightyDatepicker")
     start: null
     filter: undefined
     callback: undefined
+    afterMoveMonth: undefined
     markerTemplate: "{{ day.marker }}"
   restrict: "AE"
   replace: true
@@ -226,6 +227,8 @@ angular.module("mightyDatepicker")
 
     $scope.moveMonth = (step) ->
       $scope.options.start.add(step, 'month')
+      if $scope.options.afterMoveMonth
+        $scope.options.afterMoveMonth $scope.options.start
       _prepare()
       return
 

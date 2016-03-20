@@ -16,6 +16,7 @@
         start: null,
         filter: void 0,
         callback: void 0,
+        afterMoveMonth: void 0,
         markerTemplate: "{{ day.marker }}"
       };
       return {
@@ -251,6 +252,9 @@
           };
           $scope.moveMonth = function(step) {
             $scope.options.start.add(step, 'month');
+            if ($scope.options.afterMoveMonth) {
+              $scope.options.afterMoveMonth($scope.options.start);
+            }
             _prepare();
           };
           $scope.select = function(day) {
